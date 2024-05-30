@@ -18,22 +18,9 @@
                         <small>Author</small>
                     </h1>
                     <div class="col-xs-6">
+                        <!-- ADD CATEGORY -->
                         <?php
-                        if (isset($_POST["submit"])) {
-                            $cat_title = $_POST["cat_title"];
-
-                            if ($cat_title == "" || empty("cat_title")) {
-                                echo "This field cannot be empty";
-                            } else {
-                                $query = "INSERT into categories(cat_title) VALUES('{$cat_title}')";
-
-                                $create_cat_query = mysqli_query($dbconn, $query);
-
-                                if (!$create_cat_query) {
-                                    die("Query failed" . mysqli_error($dbconn));
-                                }
-                            }
-                        }
+                            insert_cat();
                         ?>
                         <form action="" method="post">
                             <div class="form-group">
@@ -44,11 +31,18 @@
                                 <input class="btn btn-primary" type="submit" name="submit" value="Add Category">
                             </div>
                         </form>
+
+                        <!-- EDIT CATEGORY -->
+                        <?php 
+                            if (isset($_GET['edit'])) {
+                                $cat_edit = $_GET['edit'];
+                                include("includes/update_categories.php");
+                            }
+                        ?>
+
                     </div>
                     <div class="col-xs-6">
-                        <?php $query = "SELECT * FROM categories";
-                        $selCategory = mysqli_query($dbconn, $query);
-                        ?>
+                        <!--See all of cateories to Add, Edit, and Delete records.-->
                         <table class="table table-bordered table-hover">
                             <thead>
                                 <tr>
@@ -57,14 +51,12 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php while ($row = mysqli_fetch_assoc($selCategory)) {
-                                    $cat_ID = $row['ID'];
-                                    $cat_title = $row['cat_title'];
-                                    echo "<tr>";
-                                    echo "<td>{$cat_ID}</td>";
-                                    echo "<td>{$cat_title}</td>";
-                                    echo "</tr>";
-                                } ?>
+                                <?php
+                                //SHOW ALL CATEGORIES FUNCTION
+                                findAllCat();
+                                //DELETE CATEGORY FUNCTION
+                                delCat();
+                                ?>
                             </tbody>
                         </table>
                     </div>
