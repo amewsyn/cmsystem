@@ -16,30 +16,21 @@
                     <h1 class="page-header">
                         Welcome, Admin
                         <small>Author</small>
-                    </h1>
-
+                    </h1>  
                             <?php 
                             
                                 if(isset($_GET['source'])) {
-                                    $source = $_GET['source'];
+                                    switch($_GET['source']) {
+                                        case 'add_post':
+                                            include "includes/add_post.php";
+                                            break;
+                                        case 'edit_post':
+                                            include "includes/edit_post.php";
+                                            break;
+                                    }
                                 } else {
-                                    $source = '';
+                                    include("includes/view_posts.php");
                                 }
-
-                                switch($source) {
-
-                                    case 'add_post':
-                                        include "includes/add_post.php";
-                                        break;
-                                    case '4':
-                                        echo 'NICE';
-                                        break;
-                                    case '5':
-                                        echo 'NCE';
-                                        break;
-                                    default:
-                                }
-
                             ?>
 
                             <!-- <td>10</td>

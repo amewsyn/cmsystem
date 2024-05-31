@@ -1,23 +1,27 @@
 <?php
 
 if (isset($_POST['create_post'])) {
-    $post_title = $_POST['p_title'];
-    $post_author = $_POST['p_author'];
-    $post_category = $_POST['p_category_id'];
-    $post_status = $_POST['p_status'];
-    $post_image = $_FILES['p_image']['name'];
-    $post_image_temp = $_FILES['p_image']['tmp_name'];
-    $post_tags = $_POST['p_tags'];
-    $post_content = $_POST['p_content'];
+    $post_title = $_POST['post_title'];
+    $post_author = $_POST['post_author'];
+    $post_user = $_POST['post_user'];
+    $post_category = $_POST['post_category_id'];
+    $post_status = $_POST['post_status'];
+    $post_image = $_FILES['post_image']['name'];
+    $post_image_temp = $_FILES['post_image']['tmp_name'];
+    $post_tags = $_POST['post_tags'];
+    $post_content = $_POST['post_content'];
     $post_date = date('d-m-y');
     $post_comments_count = 4;
 
     move_uploaded_file($post_image_temp, "../images/$post_image");
 
-    $query = "INSERT INTO posts(post_title, post_author, post_category,  post_status, post_image, post_tags, post_content, post_date, post_comments_count) 
-    VALUES ('{$post_title}', '{$post_author}', '{$post_category}, '{$post_status}', '{$post_image}', '{$post_tags}', '{$post_content}', now() , '{$post_comments_count}')";
+    $query = "INSERT INTO posts (post_title, post_user, post_author, post_category_id,  post_status, post_image, post_tags, post_content, post_date, post_comments_count) 
+    VALUES ('{$post_title}', '{$post_user}', '{$post_author}', '{$post_category}', '{$post_status}', '{$post_image}', '{$post_tags}', '{$post_content}', now() , '{$post_comments_count}')";
 
-    $add_post_query = mysqli_query($dbconn, $query);
+
+    $create_post_query = mysqli_query($dbconn, $query);
+
+    confirm_query($create_post_query);
 }
 ?>
 
@@ -26,39 +30,43 @@ if (isset($_POST['create_post'])) {
 
 
     <div class="form-group">
-        <label for="title">Post title</label>
-        <input type="text" class="form-control" name="p_title">
+        <label for="title">Post Title</label>
+        <input type="text" class="form-control" name="post_title">
     </div>
 
-
     <div class="form-group">
-        <label for="post_category">Post Category ID</label>
-        <input type="text" class="form-control" name="p_category_id">
+        <label for="title">Post User</label>
+        <input type="text" class="form-control" name="post_user">
     </div>
 
     <div class="form-group">
         <label for="post_author">Post Author</label>
-        <input type="text" class="form-control" name="p_author">
+        <input type="text" class="form-control" name="post_author">
+    </div>
+
+    <div class="form-group">
+        <label for="post_category">Post Category ID</label>
+        <input type="text" class="form-control" name="post_category_id">
     </div>
 
     <div class="form-group">
         <label for="post_status">Post Status</label>
-        <input type="text" class="form-control" name="p_status">
+        <input type="text" class="form-control" name="post_status">
     </div>
 
     <div class="form-group">
         <label for="post_image">Post Image</label>
-        <input type="file" name="p_image">
+        <input type="file" name="post_image">
     </div>
 
     <div class="form-group">
         <label for="post_tags">Post Tags</label>
-        <input type="text" class="form-control" name="p_tags">
+        <input type="text" class="form-control" name="post_tags">
     </div>
 
     <div class="form-group">
         <label for="post_content">Post Content</label>
-        <textarea class="form-control" name="p_content" id="" cols="30" rows="10"></textarea>
+        <textarea class="form-control" name="post_content" id="" cols="30" rows="10"></textarea>
     </div>
 
     <div class="form-group">

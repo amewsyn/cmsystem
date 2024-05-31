@@ -1,4 +1,12 @@
 <?php
+function confirm_query($result)
+{
+    global $dbconn;
+    if (!$result) {
+        die("Query failed " . mysqli_error($dbconn));    
+    }
+    return 1;
+}
 
 function insert_cat()
 {
@@ -39,7 +47,8 @@ function findAllCat()
     }
 }
 
-function delCat(){
+function delCat()
+{
     global $dbconn;
     if (isset($_GET['delete'])) {
         $cat_del = $_GET['delete'];
