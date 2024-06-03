@@ -29,9 +29,12 @@
                 <ul class="list-unstyled">
                 <?php while ($row = mysqli_fetch_assoc($sidebarCatQuery)) {
                 $cat_title = $row['cat_title'];
-                echo "<li><a href='#'>{$cat_title}</a></li>";}?>
+                $cat_id = $row['ID'];
+                echo "<li><a href='category.php?category=$cat_id'>{$cat_title}</a></li>";}?>
                 </ul>
             </div>
+
+
             <!-- /.col-lg-6 -->
             <!-- <div class="col-lg-6">
                 <ul class="list-unstyled">
@@ -46,6 +49,8 @@
                 </ul>
             </div> -->
             <!-- /.col-lg-6 -->
+
+
         </div>
         <!-- /.row -->
     </div>

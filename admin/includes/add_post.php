@@ -44,9 +44,25 @@ if (isset($_POST['create_post'])) {
         <input type="text" class="form-control" name="post_author">
     </div>
 
+    <?php
+    $query = 'SELECT * FROM `categories` ORDER BY `ID` ASC';
+    $selCategory = mysqli_query($dbconn, $query);
+    confirm_query($selCategory);
+    ?>
+
     <div class="form-group">
-        <label for="post_category">Post Category ID</label>
-        <input type="text" class="form-control" name="post_category_id">
+        <label for="post_category">Post Category ID</label><br>
+        <select name="post_category_id" id="post_cat">
+            <?php
+            while ($row = mysqli_fetch_assoc($selCategory)) {
+                $cat_ID = $row['ID'];
+                $cat_title = $row['cat_title'];
+
+                // Corrected echo statement
+                echo "<option value='{$cat_ID}'>{$cat_title}</option>";
+            }
+            ?>
+        </select>
     </div>
 
     <div class="form-group">
