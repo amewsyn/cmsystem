@@ -67,6 +67,7 @@
                                 
                                 $query = "DELETE FROM posts WHERE post_id = {$del_post_id}";
                                 $delete_query = mysqli_query($dbconn,$query);
+                                header("Location: posts.php");
 
                                 confirm_query($delete_query);
                             }

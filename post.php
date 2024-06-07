@@ -59,8 +59,6 @@
             <?php } ?>
 
             <!-- Blog Comments -->
-
-            <!-- Comments Form -->
             <?php
             if (isset($_POST['create_comment'])) {
                 $single_post_id = $_GET['p_id'];
@@ -75,7 +73,13 @@
                 if (!$create_comment_query) {
                     die("Query Failed: " . mysqli_error($dbconn));
                 }
+
+                $query = "UPDATE posts SET post_comments_count = post_comments_count+1 WHERE post_ID = $single_post_id";
+                $update_comments_count = mysqli_query($dbconn, $query);
             } ?>
+
+
+            <!-- Comments Form -->
 
 
             <div class="well">
@@ -90,6 +94,7 @@
                         <input type="email" name="comment_email" class="form-control">
                     </div>
                     <div class="form-group">
+                        <label for="comment">Your comment:</label>
                         <textarea name="comment_content" class="form-control" rows="3"></textarea>
                     </div>
                     <button type="submit" name="create_comment" class="btn btn-primary">Submit</button>
@@ -101,30 +106,32 @@
             <!-- Posted Comments -->
 
             <?php
-            $query ="SELECT * FROM comments WHERE comment_post_id = {$single_post_id}
-                    AND comment_status = 'approved' ORDER BY comment_id DESC";
+            $query = "SELECT * FROM comments WHERE comment_post_id = {$single_post_id} 
+            AND comment_status = 'approved' ORDER BY comment_id DESC";
             $select_comment_query = mysqli_query($dbconn, $query);
+
             if (!$select_comment_query) {
                 die("Query Failed " . mysqli_error($dbconn));
             }
 
             while ($row = mysqli_fetch_assoc($select_comment_query)) {
-                $comment_date = $row['commente_date'];
+                $comment_date = $row['comment_date'];
+                $comment_author = $row['comment_author'];
                 $comment_content = $row['comment_content'];
-                $comment_author = $row['comment_author']; ?>
-
+            ?>
 
                 <div class="media">
                     <a class="pull-left" href="#">
                         <img class="media-object" src="http://placehold.it/64x64" alt="">
                     </a>
                     <div class="media-body">
-                        <h4 class="media-heading">Start Bootstrap
-                            <small>August 25, 2014 at 9:30 PM</small>
+                        <h4 class="media-heading"><?php echo $comment_author;?>
+                            <small><?php echo $comment_date;?></small>
                         </h4>
-                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                        <?php echo $comment_content;?>
                     </div>
                 </div>
+
 
 
 

@@ -13,7 +13,7 @@
         <!-- Blog Entries Column -->
         <div class="col-md-8">
 
-            <?php $query = "SELECT * FROM posts";
+            <?php $query = "SELECT * FROM posts WHERE post_status = 'published'";
             $allPostQuery = mysqli_query($dbconn, $query);
 
 
@@ -23,7 +23,9 @@
                 $post_author = $row['post_author'];
                 $post_date = $row['post_date'];
                 $post_image = $row['post_image'];
-                $post_content = substr($row['post_content'],0,50); ?>
+                $post_content = substr($row['post_content'],0,50); 
+                $post_status = $row['post_status'];?>
+                
 
                 <h1 class="page-header">
                     Page Heading

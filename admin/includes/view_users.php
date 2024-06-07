@@ -1,36 +1,34 @@
 <table class="table table-bordered">
                         <tr>
                             <th>ID</th>
-                            <th>Author</th>
-                            <th>Comment</th>
+                            <th>Username</th>
+                            <th>Firstname</th>
+                            <th>Lastname</th>
                             <th>Email</th>
-                            <th>Status</th>
-                            <th>In Response to</th>
+                            <th>Role</th>
                             <th>Date</th>
-                            <th>Approved</th>
-                            <th>Unapproved</th>
-                            <th>Delete</th>
                         </tr>
                     <tbody>
                         
                         <?php
-                            $query = "SELECT * FROM comments";
-                            $selComments = mysqli_query($dbconn, $query);
+                            $query = "SELECT * FROM users";
+                            $showUsers = mysqli_query($dbconn, $query);
                         
-                            while ($row = mysqli_fetch_assoc($selComments)) {
-                                $comment_ID             = $row['comment_id'];
-                                $c_post_id              = $row['comment_post_id'];
-                                $comment_author         = $row['comment_author'];
-                                $comment_email          = $row['comment_email'];
-                                $comment_content        = $row['comment_content'];
-                                $comment_status         = $row['comment_status'];
-                                $comment_date           = $row['comment_date'];
+                            while ($row = mysqli_fetch_assoc($showUsers)) {
+                                $user_id             = $row['user_id'];
+                                $user_uname             = $row['user_uname'];
+                                $user_fname              = $row['user_fname'];
+                                $user_lname         = $row['user_lname'];
+                                $user_email          = $row['user_email'];
+                                $user_role        = $row['user_role'];
+                                $user_dateadd         = $row['user_dateadd'];
                             
                         
                                     echo "<tr>";
-                                    echo "<td>$comment_ID</td>";
-                                    echo "<td>$comment_author</td>";
-                                    echo "<td>$comment_content</td>";
+                                    echo "<td>$user_id</td>";
+                                    echo "<td>$user_uname</td>";
+                                    echo "<td>$user_fname</td>";
+                                    echo "<td>$user_lname</td>";
                                     
                                     // $query = "SELECT * FROM categories WHERE ID = {$post_category}";
                                     // $editCategory = mysqli_query($dbconn, $query);
@@ -40,22 +38,22 @@
                                     //         $cat_title = $row['cat_title'];
                                     //     }
                                     
-                                    echo "<td>$comment_email</td>";
-                                    echo "<td>$comment_status</td>";
+                                    echo "<td>$user_email</td>";
+                                    echo "<td>$user_role</td>";
 
-                                    $query = "SELECT * FROM posts WHERE post_id = $c_post_id";
-                                    $select_post_id_query = mysqli_query($dbconn, $query);
-                                    while ($row = mysqli_fetch_assoc($select_post_id_query)) {
-                                        $post_id = $row["post_id"];
-                                        $post_title = $row["post_title"];
+                                    // $query = "SELECT * FROM posts WHERE post_id = $c_post_id";
+                                    // $select_post_id_query = mysqli_query($dbconn, $query);
+                                    // while ($row = mysqli_fetch_assoc($select_post_id_query)) {
+                                    //     $post_id = $row["post_id"];
+                                    //     $post_title = $row["post_title"];
 
-                                        echo "<td><a href = '../post.php?p_id=$post_id'>$post_title</a></td>";
-                                    }
-                                    echo "<td>$comment_date</td>";
-                                    echo "<td><a href = 'comments.php?approve=$comment_ID'>Approved</a></td>";
-                                    echo "<td><a href = 'comments.php?unapprove=$comment_ID'>Unapproved</a></td>";
-                                    echo "<td><a href = 'comments.php?delete=$comment_ID'>Delete</a></td>";
-                                    echo "</tr>";
+                                    //     echo "<td><a href = '../post.php?p_id=$post_id'>$post_title</a></td>";
+                                    // }
+                                    echo "<td>$user_dateadd</td>";
+                                    // echo "<td><a href = 'comments.php?approve=$comment_ID'>Approved</a></td>";
+                                    // echo "<td><a href = 'comments.php?unapprove=$comment_ID'>Unapproved</a></td>";
+                                    // echo "<td><a href = 'comments.php?delete=$comment_ID'>Delete</a></td>";
+                                    // echo "</tr>";
 
 
                             }
