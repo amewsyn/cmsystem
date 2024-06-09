@@ -6,7 +6,7 @@
                             <th>Lastname</th>
                             <th>Email</th>
                             <th>Role</th>
-                            <th>Date</th>
+                            
                         </tr>
                     <tbody>
                         
@@ -16,6 +16,7 @@
                         
                             while ($row = mysqli_fetch_assoc($showUsers)) {
                                 $user_id             = $row['user_id'];
+                                $user_password              =$row['user_pword'];
                                 $user_uname             = $row['user_uname'];
                                 $user_fname              = $row['user_fname'];
                                 $user_lname         = $row['user_lname'];
@@ -49,42 +50,43 @@
 
                                     //     echo "<td><a href = '../post.php?p_id=$post_id'>$post_title</a></td>";
                                     // }
-                                    echo "<td>$user_dateadd</td>";
-                                    // echo "<td><a href = 'comments.php?approve=$comment_ID'>Approved</a></td>";
-                                    // echo "<td><a href = 'comments.php?unapprove=$comment_ID'>Unapproved</a></td>";
-                                    // echo "<td><a href = 'comments.php?delete=$comment_ID'>Delete</a></td>";
+                                    
+                                    echo "<td><a href = 'users.php?toAdmin=$user_id'>Admin</a></td>";
+                                    echo "<td><a href = 'users.php?toSubs=$user_id'>Subscriber</a></td>";
+                                    echo "<td><a href = 'users.php?source=edit_user&edit_user=$user_id'>Edit</a></td>";
+                                    echo "<td><a href = 'users.php?delete=$user_id'>Delete</a></td>";
                                     // echo "</tr>";
 
 
                             }
 
-                            if(isset($_GET['approve'])){
-                                $ap_comment_id = $_GET['approve'];
+                            if(isset($_GET['toAdmin'])){
+                                $toAdmin_id = $_GET['toAdmin'];
                                 
-                                $query = "UPDATE comments SET comment_status = 'approved' WHERE comment_ID = $ap_comment_id";
-                                $ap_query = mysqli_query($dbconn,$query);
-                                header("Location: comments.php");
+                                $query = "UPDATE users SET user_role = 'Admin' WHERE user_id = $toAdmin_id";
+                                $ta_query = mysqli_query($dbconn,$query);
+                                header("Location: users.php");
 
-                                confirm_query($ap_query);
+                                confirm_query($ta_query);
                             }
 
-                            if(isset($_GET['unapprove'])){
-                                $un_comment_id = $_GET['unapprove'];
+                            if(isset($_GET['toSubs'])){
+                                $toSubs_id = $_GET['toSubs'];
                                 
-                                $query = "UPDATE comments SET comment_status = 'unapproved' WHERE comment_ID = $un_comment_id";
-                                $un_query = mysqli_query($dbconn,$query);
-                                header("Location: comments.php");
+                                $query = "UPDATE users SET user_role = 'Subscriber' WHERE user_id = $toSubs_id";
+                                $ts_query = mysqli_query($dbconn,$query);
+                                header("Location: users.php");
 
-                                confirm_query($un_query);
+                                confirm_query($ts_query);
                             }
 
 
                             if(isset($_GET['delete'])){
-                                $del_comment_id = $_GET['delete'];
+                                $del_user_id = $_GET['delete'];
                                 
-                                $query = "DELETE FROM comments WHERE comment_id = {$del_comment_id}";
+                                $query = "DELETE FROM users WHERE user_id = {$del_user_id}";
                                 $delete_query = mysqli_query($dbconn,$query);
-                                header("Location: comments.php");
+                                header("Location: users.php");
 
                                 confirm_query($delete_query);
                             }
