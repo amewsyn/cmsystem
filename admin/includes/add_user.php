@@ -1,7 +1,6 @@
 <?php
 
 if (isset($_POST['create_user'])) {
-    $user_id             = $_POST['user_id'];
     $user_fname              = $_POST['user_fname'];
     $user_lname             = $_POST['user_lname'];
     $user_role              = $_POST['user_role'];
@@ -15,12 +14,13 @@ if (isset($_POST['create_user'])) {
 
     $query = "INSERT INTO users (user_fname, user_lname, user_role,  user_uname, user_pword, user_email) 
     VALUES ('{$user_fname}', '{$user_lname}', '{$user_role}', '{$user_uname}', '{$user_pword}', '{$user_email}')";
-    header("Location: users.php");
+    //header("Location: users.php");
 
 
     $add_user_query = mysqli_query($dbconn, $query);
 
     confirm_query($add_user_query);
+    echo "User has been created!" . "<a href='users.php'>View users</a>"; 
 }
 ?>
 
@@ -38,11 +38,15 @@ if (isset($_POST['create_user'])) {
         <input type="text" class="form-control" name="user_lname">
     </div>
 
+    <div class="form-group">
+    <label for="user_role">Role</label><br>
     <select name="user_role" id="" required>
+                <option value="">Please select</option>
                 <option value="admin">Admin</option>
-                <option value="Subscriber">Subscriber</option> 
+                <option value="subscriber">Subscriber</option> 
 
-    </select><br><br>
+    </select>
+    </div>
 
 
     <div class="form-group">

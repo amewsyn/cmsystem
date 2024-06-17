@@ -63,7 +63,7 @@
                             if(isset($_GET['toAdmin'])){
                                 $toAdmin_id = $_GET['toAdmin'];
                                 
-                                $query = "UPDATE users SET user_role = 'Admin' WHERE user_id = $toAdmin_id";
+                                $query = "UPDATE users SET user_role = 'admin' WHERE user_id = $toAdmin_id";
                                 $ta_query = mysqli_query($dbconn,$query);
                                 header("Location: users.php");
 
@@ -73,7 +73,7 @@
                             if(isset($_GET['toSubs'])){
                                 $toSubs_id = $_GET['toSubs'];
                                 
-                                $query = "UPDATE users SET user_role = 'Subscriber' WHERE user_id = $toSubs_id";
+                                $query = "UPDATE users SET user_role = 'subscriber' WHERE user_id = $toSubs_id";
                                 $ts_query = mysqli_query($dbconn,$query);
                                 header("Location: users.php");
 
